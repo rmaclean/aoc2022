@@ -1,0 +1,7 @@
+{
+  "name": "aoc2022",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Robert MacLean <robert@sadev.co.za>",
+  "license": "MIT"
+}
