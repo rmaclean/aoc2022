@@ -19,7 +19,9 @@ const main = async () => {
         elf.total = elf.items.reduce((prev, curr) => prev += curr, 0)
     })
 
-    console.log(Math.max(...elfs.map(elf => elf.total)))
+    elfs.sort((elfA, elfB) => (elfA.total - elfB.total) * -1)
+
+    console.log(elfs[0].total + elfs[1].total + elfs[2].total)
 }
 
 main()
