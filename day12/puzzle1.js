@@ -1,12 +1,17 @@
 const fs = require('fs').promises;
 
-const testPath = (successfulPaths, pathsToTest, map, end) => {
+const testPath = (successfulPath, pathsToTest, map, end) => {
+    console.log(pathsToTest.length)
     const path = pathsToTest.pop()
+    if (successfulPath && path.length >= successfulPath.length) {
+        // not shorter
+        return successfulPath
+    }
+
     const lastStepIndex = path.length - 1
     const lastStep = path[lastStepIndex]
     if (lastStep.x == end.x && lastStep.y == end.y) {
-        successfulPaths.push(path)
-        return
+        return path
     }
 
     let nextSteps = []
@@ -33,6 +38,8 @@ const testPath = (successfulPaths, pathsToTest, map, end) => {
             pathsToTest.push([...path, nextStep])
         }
     }
+
+    return successfulPath
 }
 
 const checkNeighbours = (position, map, mapHeight, mapWidth) => {
@@ -96,13 +103,13 @@ const main = async () => {
 
     const pathsToTest = [[map[start.y][start.x]]]
 
-    const successfulPaths = []
+    let successfulPath = undefined
 
     while (pathsToTest.length > 0) {
-        testPath(successfulPaths, pathsToTest, map, end)
+        successfulPath = testPath(successfulPath, pathsToTest, map, end)
     }
 
-    console.log(successfulPaths.map(p => p.length - 1).sort()[0])
+    console.log(successfulPath.length - 1)
 }
 
 main()
